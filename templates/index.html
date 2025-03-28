@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Products Page{% endblock %}
+
+{% block content %}
+<div>
+    <h1 class="text-center">Products</h1>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}" />
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description}}</p>
+                    {% if product.metadata.price_id %}
+                    <form action="{{ url_for('home') }}" method="POST">
+                        <input type="hidden" name="price_id" value="{{ product.metadata.price_id }}">
+                        <button type="submit" class="btn btn-primary">Buy Now</button>
+                    </form>
+                    {% else %}
+                    <p class="text-danger">Price not available</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
