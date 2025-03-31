@@ -18,6 +18,12 @@
                     <tr>
                         <td>{{ item.name }}</td>
                         <td>${{ item.price }}</td>
+                        <td>
+                            <form action="/remove_from_cart" method="POST">
+                                <input type="hidden" name="price_id" value="{{ item.price_id }}" />
+                                <button type="submit" class="btn btn-danger btn-sm">🗑 Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -28,6 +34,7 @@
                 </tr>
             </tfoot>
         </table>
+        <a href="{{ url_for('home') }}">Add More Items</a>
 
         <div class="text-center">
             <form action="/create-checkout-session" method="POST">

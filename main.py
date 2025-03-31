@@ -77,6 +77,14 @@ def add_to_cart():
     session.modified = True  #required to save the session
     return redirect(url_for('cart'))
 
+@app.route('/remove_from_cart', methods=['POST'])
+def remove_from_cart():
+    price_id = request.form.get('price_id')
+    if 'cart' in session and price_id in session['cart']:
+        session['cart'].remove(price_id)
+        session.modified = True
+    return redirect(url_for('cart'))
+
 
 @app.route('/cart')
 def cart():
